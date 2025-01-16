@@ -1,0 +1,171 @@
+/* Layout for each row */
+.form-row {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  width: 100%;
+  margin-bottom: 15px;
+}
+
+/* Each form field container */
+.form-field {
+  display: flex;
+  flex-direction: column;
+  flex: 1;
+  margin-bottom: 15px; /* Adds space between fields */
+}
+
+/* Left aligned fields */
+.form-field.left {
+  align-items: flex-start;
+}
+
+/* Right aligned fields */
+.form-field.right {
+  align-items: flex-end;
+}
+
+/* Styling for labels and input/select */
+.form-field label {
+  font-size: 14px;
+  color: #555;
+  margin-bottom: 5px;
+}
+
+.form-field input[type="text"]{
+  width: 100%;
+  padding: 10px;
+  font-size: 14px;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+  box-sizing: border-box;
+  margin-bottom: 10px;
+}
+.form-field input[type="date"]{
+  width: 80%;
+  padding: 10px;
+  font-size: 14px;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+  box-sizing: border-box;
+  margin-bottom: 10px;
+}
+.form-field select{
+  width: 80%;
+  padding: 10px;
+  font-size: 14px;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+  box-sizing: border-box;
+  margin-bottom: 10px;
+}
+.form-field textarea {
+  width: 80%;
+  padding: 10px;
+  font-size: 14px;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+  box-sizing: border-box;
+  margin-bottom: 10px;
+}
+
+/* General Styling */
+body {
+  font-family: sans-serif; /* Use a clean, sans-serif font */
+}
+
+.task-form {
+  width: 40%; /* Adjust width as needed */
+  margin: 20px auto; /* Center the form */
+  padding: 30px;
+  border: 1px solid #ddd; /* Light gray border */
+  border-radius: 5px; /* Rounded corners */
+  box-shadow: 2px 2px 5px rgba(0, 0, 0, 0.1); /* Subtle shadow */
+  background-color: #f9f9f9; /* Very light gray background */
+}
+
+.task-form h2 {
+  text-align: center;
+  margin-top: 5px; /* Remove default top margin */
+  margin-bottom: 20px; /* Add some bottom margin */
+  color: #333; /* Darker heading color */
+}
+
+.task-form label {
+  display: block; /* Make labels appear above inputs */
+  margin-bottom: 5px;
+  font-weight: bold;
+  color: #555;
+}
+
+.task-form input[type="text"]{
+  width: 80%; /* Ensure full width minus padding and border */
+  padding: 10px;
+  margin-bottom: 15px;
+  border: 1px solid #ccc;
+  border-radius: 3px;
+  box-sizing: border-box; 
+}
+.task-form input[type="date"]{
+  width: 80%; /* Ensure full width minus padding and border */
+  padding: 10px;
+  margin-bottom: 15px;
+  border: 1px solid #ccc;
+  border-radius: 3px;
+  box-sizing: border-box; 
+}
+.task-form select{
+  width: 80%; /* Ensure full width minus padding and border */
+  padding: 10px;
+  margin-bottom: 15px;
+  border: 1px solid #ccc;
+  border-radius: 3px;
+  box-sizing: border-box; 
+}
+.task-form textarea {
+  width: 90%; /* Ensure full width minus padding and border */
+  padding: 10px;
+  margin-bottom: 15px;
+  border: 1px solid #ccc;
+  border-radius: 3px;
+  box-sizing: border-box; /* Include padding and border in element's total width and height */
+}
+
+/* Custom height for textareas */
+.task-form textarea {
+  height: 100px; /* Set a reasonable height for textareas */
+  resize: vertical; /* Allow vertical resizing only */
+}
+
+/* Button Styling */
+.task-form button.add-task {
+  background-color: #4CAF50; /* Green */
+  border: none;
+  color: white;
+  padding: 10px 20px;
+  text-align: center;
+  text-decoration: none;
+  display: inline-block;
+  font-size: 16px;
+  margin-top: 10px;
+  border-radius: 5px;
+  cursor: pointer;
+  justify-content: center;
+  transition: background-color 0.3s; /* Smooth transition on hover */
+}
+
+.task-form button.add-task:hover {
+  background-color: #45a049; /* Darker green on hover */
+}
+
+/* Responsive adjustments */
+@media (max-width: 600px) {
+  .task-form {
+    width: 95%; /* Make the form wider on smaller screens */
+  }
+  .form-row {
+    flex-direction: column; /* Stack items vertically on small screens */
+    align-items: stretch; /* Ensure full width */
+  }
+}
+

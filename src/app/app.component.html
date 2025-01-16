@@ -1,0 +1,224 @@
+<!-- <!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Todo List</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      background-color: #f4f7fc;
+      margin: 0;
+      padding: 0;
+    }
+    .container {
+      width: 90%;
+      max-width: 1200px;
+      margin: 20px auto;
+      padding: 20px;
+      background-color: #fff;
+      border-radius: 8px;
+      box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+    }
+    .header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      border-bottom: 2px solid #ccc;
+      padding-bottom: 10px;
+    }
+    .header h2 {
+      margin: 0;
+      font-size: 24px;
+      color: #333;
+    }
+    .header button {
+      background-color: #4CAF50;
+      color: white;
+      padding: 10px 20px;
+      border: none;
+      border-radius: 5px;
+      cursor: pointer;
+      font-size: 14px;
+    }
+    .task-form, .task-list {
+      margin-top: 20px;
+    }
+    label {
+      font-weight: bold;
+      margin-bottom: 5px;
+      display: block;
+    }
+    input, select, textarea {
+      width: 100%;
+      padding: 10px;
+      margin-bottom: 15px;
+      border: 1px solid #ccc;
+      border-radius: 5px;
+    }
+    button {
+      padding: 10px 15px;
+      border: none;
+      border-radius: 5px;
+      cursor: pointer;
+    }
+    button.add-task {
+      background-color: #4CAF50;
+      color: white;
+    }
+    table {
+      width: 100%;
+      border-collapse: collapse;
+      margin-top: 20px;
+    }
+    th, td {
+      border: 1px solid #ddd;
+      padding: 10px;
+      text-align: left;
+    }
+    th {
+      background-color: #f4f7fc;
+    }
+    .actions button {
+      margin-right: 5px;
+    }
+    .edit-button {
+      background-color: #007BFF;
+      color: white;
+    }
+    .delete-button {
+      background-color: #FF5733;
+      color: white;
+    }
+  </style>
+</head>
+<body>
+
+<div class="container">
+  <div class="header">
+    <h2>Todo List</h2>
+    <button onclick="showTaskForm()">New Task</button>
+    <button onclick="showTaskList()">Task List</button> 
+  </div>
+
+  <div class="task-form" id="taskFormContainer">
+    <h3>Create New Task</h3>
+    <form id="taskForm">
+      <label for="assignedTo">Assigned To</label>
+      <input type="text" id="assignedTo" placeholder="Enter User" required>
+      <label for="dueDate">Due Date</label>
+      <input type="date" id="dueDate" required>
+      <label for="status">Status</label>
+      <select id="status">
+        <option value="Not Started">Not Started</option>
+        <option value="In Progress">In Progress</option>
+        <option value="Completed">Completed</option>
+      </select>
+      <label for="priority">Priority</label>
+      <select id="priority">
+        <option value="High">High</option>
+        <option value="Normal">Normal</option>
+        <option value="Low">Low</option>
+      </select>
+      <label for="comments">Description</label>
+      <textarea id="comments" placeholder="Comments"></textarea>
+      <button type="submit" class="add-task">Add Task</button>
+    </form>
+  </div>
+
+  <div class="task-list" id="taskListContainer" style="display: none;">
+    <table>
+      <thead>
+        <tr>
+          <th>Assigned To</th>
+          <th>Status</th>
+          <th>Due Date</th>
+          <th>Priority</th>
+          <th>Comments</th>
+          <th>Actions</th>
+        </tr>
+      </thead>
+      <tbody id="taskList"></tbody>
+    </table>
+  </div>
+</div>
+
+<script>
+  const tasks = [];
+  let editingIndex = -1;
+
+  document.getElementById('taskForm').addEventListener('submit', function (event) {
+    event.preventDefault();
+
+    const assignedTo = document.getElementById('assignedTo').value;
+    const dueDate = document.getElementById('dueDate').value;
+    const status = document.getElementById('status').value;
+    const priority = document.getElementById('priority').value;
+    const comments = document.getElementById('comments').value;
+
+    if (editingIndex >= 0) {
+      tasks[editingIndex] = { assignedTo, dueDate, status, priority, comments };
+      editingIndex = -1;
+    } else {
+      tasks.push({ assignedTo, dueDate, status, priority, comments });
+    }
+
+    document.getElementById('taskForm').reset();
+    showTaskList(); // Switch to task list view after adding/editing a task
+  });
+
+  function showTaskForm() {
+    document.getElementById('taskFormContainer').style.display = 'block';
+    document.getElementById('taskListContainer').style.display = 'none';
+  }
+
+  function showTaskList() {
+    document.getElementById('taskFormContainer').style.display = 'none';
+    document.getElementById('taskListContainer').style.display = 'block';
+    renderTasks();
+  }
+
+  function renderTasks() {
+    const taskList = document.getElementById('taskList');
+    taskList.innerHTML = '';
+    tasks.forEach((task, index) => {
+      const row = document.createElement('tr');
+      row.innerHTML = `
+        <td>${task.assignedTo}</td>
+        <td>${task.status}</td>
+        <td>${task.dueDate}</td>
+        <td>${task.priority}</td>
+        <td>${task.comments}</td>
+        <td class="actions">
+          <button class="edit-button" onclick="editTask(${index})">Edit</button>
+          <button class="delete-button" onclick="deleteTask(${index})">Delete</button>
+        </td>
+      `;
+      taskList.appendChild(row);
+    });
+  }
+
+  function editTask(index) {
+    const task = tasks[index];
+    document.getElementById('assignedTo').value = task.assignedTo;
+    document.getElementById('dueDate').value = task.dueDate;
+    document.getElementById('status').value = task.status;
+    document.getElementById('priority').value = task.priority;
+    document.getElementById('comments').value = task.comments;
+    editingIndex = index;
+    showTaskForm();
+  }
+
+  function deleteTask(index) {
+    tasks.splice(index, 1);
+    renderTasks();
+  }
+</script>
+
+</body>
+</html>
+
+
+-->
+
+<router-outlet></router-outlet>
